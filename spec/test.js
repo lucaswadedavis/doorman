@@ -82,3 +82,12 @@ describe("LinkedList()",function(){
   }); 
 
 });
+
+
+describe("Iou()",function(){
+  //promises
+  
+  it('returns a function',function(){
+    expect(Iou(function(val){return val;})).to.be.an('object');
+  });
+});

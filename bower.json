@@ -1,0 +1,20 @@
+{
+  "name": "doorman",
+  "version": "0.0.0",
+  "homepage": "https://github.com/lucaswadedavis/doorman",
+  "authors": [
+    "Lucas Wade Davis <lucaswadedavis@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "chai": "~3.0.0",
+    "mocha": "~2.2.5"
+  }
+}
