@@ -88,6 +88,19 @@ describe("Iou()",function(){
   //promises
   
   it('returns a function',function(){
-    expect(Iou(function(val){return val;})).to.be.an('object');
+    expect(Iou(function(val){return val;})).to.be.a('function');
   });
+
+  it('should return an iou with then and resolve methods',function(){
+    var x = new Iou(function(val){return val+1;});
+    expect(x.then).to.be.a('function');
+    expect(x.resolve).to.be.a('function');
+  });
+
+  it('iou.resolve() should return a value',function(){
+    var x = new Iou(function(val){return val+1;});
+    expect(x(12).resolve() ).to.equal(13);
+  });
+
+
 });

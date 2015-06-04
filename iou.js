@@ -1,21 +1,22 @@
 (function(){
   
-  var Iou = function(cb){
-    var accumulator;
-    cb.then = function(tcb){
-      if (accumulator===undefined){
-        
-      } else {
-
-      }
+  var Iou = function(cb, accumulator){
+    accumulator = accumulator || null;
+    var iou = function(){
+      accumulator = cb.apply(null,arguments);
+      return new Iou(function(){return accumulator}, accumulator);
     };
-    cb.resolve = function(){
+    iou.then = function(cb2,err){
+      
+      accumulator = cb2(accumulator);
+      return new Iou(function(){return accumulator;}, accumulator);
+      
+    };
+    iou.resolve = function(){
       return accumulator;
     };
 
-    return function(){
-      accumulator = cb.apply(null,arguments);
-    };
+    return iou;
   };  
   
   var root = this;
