@@ -1,5 +1,6 @@
 (function(){
-  
+  var root = this;
+
   var MedianCache = function(){
     var sum = 0;
     var count = 0;
@@ -10,8 +11,15 @@
   };
 
 
-  
-  var root = this;
+  root.medianCache = function(x){
+    var sum = 0;
+    var count = 0;
+    root.medianCache = function(x){
+      sum += x;
+      return sum/++count;
+    };
+    return root.medianCache(x);
+  };
 
   if (typeof exports !== 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {

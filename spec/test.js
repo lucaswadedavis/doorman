@@ -1,10 +1,20 @@
-describe("medianCache()",function(){
+describe("MedianCache()",function(){
   it("should return the median", function(){
     var m = MedianCache();
 
     expect(m(100)).to.equal(100);
     expect(m(0)).to.equal(50);
     expect(m(50)).to.equal(50);
+  });
+
+});
+
+
+describe("medianCache()",function(){
+  it("should progressively return the median without a constructor",function(){
+    expect(medianCache(100) ).to.equal(100);
+    expect(medianCache(0) ).to.equal(50);
+    expect(medianCache(50) ).to.equal(50);
   });
 
 });
