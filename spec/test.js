@@ -1,3 +1,13 @@
+describe("medianCache()",function(){
+  it("should return the median", function(){
+    var m = MedianCache();
+
+    expect(m(100)).to.equal(100);
+    expect(m(0)).to.equal(50);
+    expect(m(50)).to.equal(50);
+  });
+
+});
 
 describe("Stack()",function(){
   
