@@ -1,4 +1,21 @@
+describe("rpc()",function(){
+  
+  it("should add like this: 2 3 +",function(){
+    expect(rpc("2 3 +") ).to.equal(5);
+  });
+
+  it("should divide like this: 3 3 /",function(){
+    expect(rpc("3 3 /") ).to.equal(1);
+  });
+
+  it("should chain like this: 3 1 - 2 /",function(){
+    expect(rpc("3 1 - 2 /") ).to.equal(1);
+  });
+
+});
+
 describe("MedianCache()",function(){
+
   it("should return the median", function(){
     var m = MedianCache();
 
