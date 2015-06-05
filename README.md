@@ -1,8 +1,6 @@
 # Doorman
 
-Exercises for the doormen.
-
-## Facts
+Exercises and notes for the doormen.
 
 ### HTTP Verbs
 
