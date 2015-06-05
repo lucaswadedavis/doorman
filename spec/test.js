@@ -1,3 +1,22 @@
+describe("balancedParens()",function(){
+  var b = balancedParens;
+  it("should return true if balanced",function(){
+    expect( b("()") ).to.equal(true);
+    expect( b("[123][]") ).to.equal(true);
+    expect( b("{ab()}") ).to.equal(true);
+    expect( b("") ).to.equal(true);
+  });
+
+  it("should return false if unbalanced",function(){
+    expect( b("(") ).to.equal(false);
+    expect( b(")(") ).to.equal(false);
+    expect( b("([)]") ).to.equal(false);
+    expect( b("(){") ).to.equal(false);
+  });
+
+});
+
+
 describe("rpc()",function(){
   
   it("should add like this: 2 3 +",function(){
