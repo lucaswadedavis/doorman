@@ -10,8 +10,6 @@
 
     do{
       count ++;
-      console.log(arr[index], target);
-      console.log(index,upperBound,lowerBound);
       if (arr[index] === target) {
         break;
       }
