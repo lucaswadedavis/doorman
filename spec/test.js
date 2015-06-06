@@ -1,3 +1,19 @@
+describe("breadthFirstSearch()",function(){
+  var t = {value: 10, children : []};
+  var cb = function(val){return (val>0 && val<3);};
+  var bfs = breadthFirstSearch;
+
+  it("should return null if nothing passes the test",function(){
+    expect( bfs(t,cb) ).to.equal(null);
+  });
+
+  it("should return an array of values that pass the test",function(){
+    expect( bfs(t,cb) ).to.include.members([1,2]);
+  });
+
+});
+
+
 describe("binarySearch()",function(){
   for (var i=0, arr = []; i<10001; arr.push(i), i++){}
   
