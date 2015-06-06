@@ -1,3 +1,17 @@
+describe("binarySearch()",function(){
+  for (var i=0, arr = []; i<10001; arr.push(i), i++){}
+  
+  it("should return -1 if target is not found",function(){
+    expect( binarySearch(arr,20000) ).to.equal(-1);
+  });
+
+  it("should return the index of the target", function(){
+    expect( binarySearch(arr,3) ).to.equal(3);
+    expect( binarySearch(arr,0) ).to.equal(0);
+    expect( binarySearch(arr,10000) ).to.equal(10000);
+  });
+});
+
 describe("balancedParens()",function(){
   var b = balancedParens;
   it("should return true if balanced",function(){
