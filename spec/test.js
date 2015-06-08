@@ -1,3 +1,33 @@
+describe("BinarySearchTree()",function(){
+  var bst = BinarySearchTree(0);
+  for (var i=1;i<100;i++){
+    bst.insert(i);
+  }
+
+  it("should return return false when no value is found",function(){
+    expect( bst.contains(1000) ).to.equal(false);
+  });
+
+  it("should return true if the tree does contain the value",function(){
+    expect( bst.contains(0) ).to.equal(true);
+    expect( bst.contains(99) ).to.equal(true);
+    expect( bst.contains(44) ).to.equal(true);
+  });
+
+  it("should do a depth-first traversal of the tree",function(){
+    var mirrorArr = [];
+    bst.depthFirstLog(function(value){mirrorArr.push(value);});
+
+    for (var i=0;i<100;i++){
+      expect(mirrorArr[i]).to.equal(i);
+    }
+
+  });
+  
+
+});
+
+
 describe("breadthFirstSearch()",function(){
   var t = {value: 10, children : []};
   var cb = function(val){return (val>0 && val<3);};
