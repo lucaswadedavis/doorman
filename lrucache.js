@@ -9,7 +9,6 @@
     var rota = [];
     var ledger = {};
 
-    NAKED = {ledger:ledger,count:count,limit:limit,rota:rota,cache:cache};
 
     var lruc = {};
 

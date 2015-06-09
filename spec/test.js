@@ -1,3 +1,27 @@
+describe("Heap()",function(){
+  it("should store values",function(){
+    var h = new Heap();
+    h.add(2);
+    h.add(3);
+    h.add(4);
+    expect( h.size() ).to.equal(3);
+    expect( h.contains(3) ).to.equal(true);
+  });
+
+  it("should return false for values not stored",function(){
+    var h = new Heap();
+  
+    for (var i=10;i<50;i++){
+      h.add(i);
+    }
+
+    expect(h.contains(3) ).to.equal(false);
+  });
+
+  //need a good heap test here.
+
+});
+
 describe("LRUCache()",function(){
   
   it("should accept new key-pairs, and remember them (for a time)",function(){
