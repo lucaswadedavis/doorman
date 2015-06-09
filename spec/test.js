@@ -1,3 +1,27 @@
+describe("LRUCache()",function(){
+  
+  it("should accept new key-pairs, and remember them (for a time)",function(){
+    var fish = LRUCache(3);
+    fish.set("one",1);
+    fish.set("two",2);
+    fish.set("three",3);
+
+    expect( fish.get("one") ).to.equal(1);
+  });
+
+  it("should forget things quickly",function(){
+    var fish = LRUCache(3);
+    fish.set("one",1);
+    fish.set("two",2);
+    fish.set("three",3);
+    fish.set("four",4);
+    fish.set("five",5);
+    expect( fish.get("one") ).to.equal(null);
+  });
+
+});
+
+
 describe("Tree()",function(){
   var tree = new Tree("yo");
   it("should contain something added",function(){
