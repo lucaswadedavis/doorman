@@ -5,6 +5,7 @@
   var LRUCache = function(limit){
     limit = limit+1 || 5;
     var count = limit+1;
+    var setSize = 0;
     var cache = {};
     var rota = [];
     var ledger = {};
@@ -31,20 +32,23 @@
 
     lruc.set = function(key,value){
       count++;
+      
       var rotaIndex = count % limit;
       var formerCache = cache[rota[rotaIndex]];
 
       if (rota[rotaIndex] !== undefined){
-        if (ledger[rota[rotaIndex] ] === rotaIndex){
+        if (ledger[rota[rotaIndex] ] === rotaIndex && setSize>limit){
           //uncache
           delete cache[rota[rotaIndex]];
+          setSize--;
         }
       }        
       
       rota[rotaIndex] = key;
       ledger[key] = rotaIndex;
       cache[key] = value;
-      
+      setSize++;
+
       return formerCache || null;
     };
 
