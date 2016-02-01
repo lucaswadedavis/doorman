@@ -1,3 +1,175 @@
+describe("TicTacToe()",function(){
+
+  it("should have a board",function(){
+    var game = new TicTacToe();
+    expect(!!game.board).to.equal(true);  
+  });
+
+  it("should properly take a space when asked", function () {
+    var game = new TicTacToe();
+
+    game.takeCell(0,0);
+    game.takeCell(0,1,'o');
+
+    expect(game.board[0][0]).to.equal('x');
+    expect(game.board[0][1]).to.equal('o');
+  });
+
+  it("should recognize a win", function () {
+    var game = new TicTacToe();
+
+    for (var i=0;i<game.winningStates.length;i++){
+      for (var j=0;j<game.winningStates[i].length;j++){
+        var row = game.winningStates[i][j][0];
+        var col = game.winningStates[i][j][1];
+        game.takeCell(row, col);
+      }
+      game.gameOver();
+      expect(game.winner).to.equal('x');
+      game = new TicTacToe();
+    }
+
+  });
+
+  it("should recognize a draw", function () {
+    var game = new TicTacToe();
+    var cells = [
+      'x','o','x',
+      'o','x','o',
+      'o','x','o'
+    ];
+
+    for (var row=0;row<game.board.length;row++){
+      for (var col=0;col<game.board[row].length;col++){
+        game.takeCell(row, col, cells.pop());    
+      }
+    }
+    
+    game.gameOver();
+    expect(game.winner).to.equal('draw');
+  });
+
+  it("should take a win when the opportunity arises", function () {
+    var game = new TicTacToe();
+    var cells = [
+      'x','x',0,
+      'o','x',0,
+      'o','o',0
+    ];
+
+    for (var row=0;row<game.board.length;row++){
+      for (var col=0;col<game.board[row].length;col++){
+        var cell = cells.shift();
+        if (cell) {
+          game.takeCell(row, col, cell);
+        }
+      }
+    }
+    
+    game.play();
+    game.gameOver();
+    expect(game.winner).to.equal('x');
+
+  });
+
+  it("should block a win when the opportunity arises", function () {
+    var game = new TicTacToe();
+    var cells = [
+      'o','x','o',
+      'x','o',0,
+      'x','o',0
+    ];
+
+    for (var row=0;row<game.board.length;row++){
+      for (var col=0;col<game.board[row].length;col++){
+        var cell = cells.shift();
+        if (cell) {
+          game.takeCell(row, col, cell);
+        }
+      }
+    }
+    
+    game.play();
+    game.gameOver();
+    expect(game.board[2][2]).to.equal('x');
+
+  });
+
+
+  it("should take the center when the opportunity arises", function () {
+    var game = new TicTacToe();
+    var cells = [
+       0, 0 , 0,
+       0, 0 , 0,
+       0, 0 , 0
+    ];
+
+    for (var row=0;row<game.board.length;row++){
+      for (var col=0;col<game.board[row].length;col++){
+        var cell = cells.shift();
+        if (cell) {
+          game.takeCell(row, col, cell);
+        }
+      }
+    }
+    
+    game.play();
+    game.gameOver();
+    expect(game.board[1][1]).to.equal('x');
+
+  });
+
+  it("should take a corner when the opportunity arises", function () {
+    var game = new TicTacToe();
+    var cells = [
+       0, 0 , 0,
+       0,'o', 0,
+       0, 0 , 0
+    ];
+
+    for (var row=0;row<game.board.length;row++){
+      for (var col=0;col<game.board[row].length;col++){
+        var cell = cells.shift();
+        if (cell) {
+          game.takeCell(row, col, cell);
+        }
+      }
+    }
+    
+    game.play();
+    game.gameOver();
+    expect(game.board[0][0]).to.equal('x');
+
+  });
+
+
+  it("should just take an open spot when nothing else is available", function () {
+    var game = new TicTacToe();
+    var cells = [
+      'x', 0 ,'o',
+      'o','o','x',
+      'x','x','o'
+    ];
+
+    for (var row=0;row<game.board.length;row++){
+      for (var col=0;col<game.board[row].length;col++){
+        var cell = cells.shift();
+        if (cell) {
+          game.takeCell(row, col, cell);
+        }
+      }
+    }
+    
+    game.play();
+    game.gameOver();
+    expect(game.board[0][1]).to.equal('x');
+
+  });
+
+
+
+});
+
 describe("Set()",function(){
 
   it("should properly report whether an element is present in the set",function(){
@@ -34,7 +206,6 @@ describe("Set()",function(){
 
 
 });
-
 
 describe("LRUCache()",function(){
   
