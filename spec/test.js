@@ -1,3 +1,54 @@
+describe("SuperSet()",function(){
+
+  it("should properly report an empty set",function(){
+    var s = new SuperSet();
+
+    expect(s.isEmpty()).to.equal(true);
+
+    s.add("dog");
+    expect(s.isEmpty()).to.equal(false);
+
+    s.remove("dog");
+    expect(s.isEmpty()).to.equal(true);
+  });
+
+
+
+  it("should properly report whether an element is present in the set",function(){
+    var s = new SuperSet();
+    s.add("dog");
+    
+    expect(s.contains("dog") ).to.equal(true);
+    expect(s.contains("fox") ).to.equal(false);
+    s.clear();
+    expect(s.contains("dog") ).to.equal(false);
+  });
+
+
+  it("should report an accurate size",function(){
+    var s = new Set();
+    expect( s.size() ).to.equal(0);
+
+    s.add("one");
+    expect( s.size() ).to.equal(1);
+    s.add("one");
+    expect( s.size() ).to.equal(1);
+    s.remove("one");
+    expect(s.size() ).to.equal(0);
+    
+    for (var i=0;i<10;i++){s.add(i);}
+
+    expect(s.size() ).to.equal(10);
+
+    s.clear();
+
+    expect(s.size() ).to.equal(0);
+
+  });
+
+
+});
+
 describe("TicTacToe()",function(){
 
   it("should have a board",function(){
