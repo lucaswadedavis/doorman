@@ -1,41 +1,35 @@
 (function(){
+  
+  var Set;
 
-  var Set = function(){
+  Set = function () {
     var storage = {};
 
-    this.add = function(x){
-      storage[x]=true;
+    this.contains = function (x) {
+      return !!storage[JSON.stringify(x)];
     };
 
-    this.remove = function(x){
-      var temp = storage[x] || null;
-      delete storage[x];
-      return temp;
+    this.add = function (x) {
+      storage[JSON.stringify(x)] = x;
     };
 
-    this.size = function(){
-      var storageSize = 0;
-      for (var key in storage){storageSize++;}
-      return storageSize ;
+    this.remove = function(x) {
+      delete storage[JSON.stringify(x)];
     };
 
-    this.clear = function(){
+    this.clear = function() {
       storage = {};
     };
 
-    this.contains = function(x){
-      var r = false;
-      for (var key in storage){
-        if (key === x){
-          r=true;
-          break;
-        }
-      }
-      return r;
+    this.isEmpty = function () {
+      return !Object.keys(storage).length;
     };
+
+    this.size = function () {
+      return Object.keys(storage).length;
+    };
+
   };
-
-
 
   var root = this;
 

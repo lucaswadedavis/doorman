@@ -1,33 +1,26 @@
 (function(){
   
-  var root = this;
-
-  var balancedParens = function(x){
+  var balancedParens = function (str) {
     var stack = [];
-    var balanced = true;
-    var sequence = x.split("");
-    var opening = /\{|\[|\(|\</ ;
-    var closing = /\}|\]|\)|\>/ ;
-    var pairs = {"{}":true,"[]":true,"()":true,"<>":true};
-    
-    for (var i=0;i<sequence.length;i++){
-      if (opening.test(sequence[i]) ){
-        stack.push(sequence[i]);
-      }
+    var o = '([{';
+    var c = ')]}';
 
-      if (closing.test(sequence[i]) ){
-        if (!pairs[stack.pop()+sequence[i]]){
-          balanced = false;
-          break;
+    for (var i = 0; i < str.length; i++) {
+      if (o.indexOf(str[i]) > -1) {
+        var index = o.indexOf(str[i]);
+        stack.push(c[index]);
+      } else if (c.indexOf(str[i]) > -1) {
+        if (stack.pop() !== str[i]) {
+          return false;
         }
       }
     }
+    
 
-    balanced = (stack.length>0) ? false : balanced;
-
-    return balanced;
+    return !stack.length;
   };
 
+  var root = this;
 
   if (typeof exports !== 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {

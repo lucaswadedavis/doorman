@@ -1,127 +1,106 @@
 (function(){
   
   var TicTacToe = function () {
-   this.board = [[0,0,0],[0,0,0],[0,0,0]];
-   this.winner = null;
+    this.board = '000000000';
+    this.winner = null;
+    this.winningStates = '012,345,678,036,147,258,048,642';
 
-   this.winningStates = [];
-   this.winningStates.push([[0,0],[1,1],[2,2]]);
-   this.winningStates.push([[2,0],[1,1],[0,2]]);
-   for (var row=0, col=0; row<3; row++){
-     this.winningStates.push([[row,0],[row,1],[row,2]]);
-     this.winningStates.push([[0,col],[1,col],[2,col]]);
-   }
-
-   this.play = function (player) {
-    player = player || 'x';
-    var x, o, emptyCells, row, col;
-    // check for player wins and take the cell
-    for (var i=0;i<this.winningStates.length;i++){
-      x = 0;
-      o = 0;
-      emptyCells = [];
-      for (var j=0;j<this.winningStates[i].length;j++){
-        row = this.winningStates[i][j][0];
-        col = this.winningStates[j][j][1];
-        if (this.board[row][col] === 'x') {
-          x++;
-        } else if (this.board[row][col] === 'o') {
-          o++;
-        } else {
-          emptyCells.push([row, col]);
-        }
-      }
-      if (player === 'x' && x === 2 && emptyCells[0]) {
-        this.takeCell(emptyCells[0][0], emptyCells[0][1]);
-        return;
-      } else if (player === 'o' && o === 2 && emptyCells[0]) {
-        this.takeCell(emptyCells[0][0], emptyCells[0][1], player);
-        return;
-      } else if (player === 'x' && o === 2 && emptyCells[0]) {
-        this.takeCell(emptyCells[0][0], emptyCells[0][1], player);
-        return;
-      } else if (player === 'o' && x === 2 && emptyCells[0]) {
-        this.takeCell(emptyCells[0][0], emptyCells[0][1], player);
-        return;
-      } else if (this.board[1][1] === 0) {
-        this.takeCell(1, 1, player);
-        return;
-      } else if (this.board[0][0] === 0) {
-        this.takeCell(0, 0, player);
-        return;
-      } else if (this.board[0][2] === 0) {
-        this.takeCell(0, 2, player);
-        return;
-      } else if (this.board[2][0] === 0) {
-        this.takeCell(2, 0, player);
-        return;
-      } else if (this.board[2][2] === 0) {
-        this.takeCell(2, 2, player);
-        return;
-      }
-    }
+    this.takeCell = function (row, column, player) {
+      player = player || 'x';
+      var index = coordsToIndex(row, column);
+      this.board = this.board.substring(0, index) + player + this.board.substring(index + 1);
+    };
     
-    emptyCells = [];
-    for (var row=0;row<this.board.length;row++){
-      for (var col=0;col<this.board[row].length;col++){
-        if (!this.board[row][col]) {
-          this.takeCell(row, col, player);
+    this.getValueAtPosition = function (row, column) {
+      var index = coordsToIndex(row, column);
+      return this.board.substring(index, index + 1);
+    };
+
+    this.gameOver = function () {
+      if (this.checkBoardForWinner('x')) {
+        this.winner = 'x';
+      } else if (this.checkBoardForWinner('o')) {
+        this.winner = 'o';
+      }
+    };
+
+    this.play = function (player) {
+      var winningStates = this.winningStates.split(',');
+      
+      for (var i = 0; i < winningStates.length; i++) {
+        var state = this.checkTriplet(winningStates[i]);
+        if (state[player] === 2 && state.emptyCells[0]) {
+          var coords = indexToCoords(state.emptyCells[0])
+          this.takeCell(coords.row, coords.column, player);
+          return;
+        } else if (state[opponent] === 2 && state.emptyCells[0]) {
+          var coords = indexToCoords(state.emptyCells[0])
+          this.takeCell(coords.row, coords.column, player);
+          return;
+        } 
+      }
+
+      if (this.getValueAtPosition(1, 1) === '0') {
+          this.takeCell(1, 1, player);
+          return;
+        } else if (this.getValueAtPosition(0, 0) === '0') {
+          this.takeCell(0, 0, player);
+          return;
+        } else if (this.getValueAtPosition(0, 2) === '0') {
+          this.takeCell(0, 2, player);
+          return;
+        } else if (this.getValueAtPosition(2, 0) === '0') {
+          this.takeCell(2, 0, player);
+          return;
+        } else if (this.getValueAtPosition(2, 2) === '0') {
+          this.takeCell(2, 2, player);
+          return;
+        }
+
+      for (var i = 0; i < this.board.length; i++) {
+        if (this.board[i] === '0') {
+          var coords = indexToCoords(i);
+          this.takeCell(coords.row, coords.column, player);
           return;
         }
       }
-    }
 
-    this.gameOver();
+    };
 
-   };
-
-   this.gameOver = function () {
-    //check for x wins
-    var x, o, emptyCells, row, col;
-    
-    for (var i=0;i<this.winningStates.length;i++) {
-      x = 0;
-      o = 0;
-      for (var j=0;j<this.winningStates[i].length;j++) {
-        row = this.winningStates[i][j][0];
-        col = this.winningStates[i][j][1];
-        if (this.board[row][col] === 'x') {
-          x++;
-        } else if (this.board[row][col] === 'o') {
-          o++;
+    this.checkTriplet = function (triplet) {
+      var res = {x: 0, o: 0, emptyCells: []};
+      for (var i = 0; i < triplet.length; i++) {
+        if (this.board[parseInt(triplet[i], 10)] === '0') {
+          res.emptyCells.push(triplet[i]);
+        } else if (this.board[parseInt(triplet[i], 10)] === 'x') {
+          res['x'] ++;
+        } else {
+          res['o'] ++;
         }
       }
-      if (x === 3) {
-        this.winner = 'x';
-        return;
-      } else if (o === 3) {
-        this.winner = 'o';
-        return;
-      }
-    }
+      return res;
+    };
 
-    //check for draws
-    emptyCells = 9;
-    for (var row=0;row<this.board.length;row++) {
-      for (var col=0;col<this.board[row].length;col++) {
-        if (this.board[row][col]) {
-          emptyCells--;
+    this.checkBoardForWinner = function (player) {
+      var winningStates = this.winningStates.split(',');
+      for (var i = 0; i < winningStates.length; i++) {
+        if (this.checkTriplet(winningStates[i])[player] === 3) {
+          return true;
         }
       }
-    }
-    if (emptyCells === 0) {
-      this.winner = 'draw';
-      return;
-    }
-   };
+      return false;
+    };
 
-   this.takeCell = function (row, column, player) {
-    player = player || 'x';
-    // check that cell is unoccupied
-    // take the Cell
-    this.board[row][column] = player;
+    function coordsToIndex (row, column) {
+      return 3 * row + column;
+    };
+
+    function indexToCoords (index) {
+      return {row: Math.floor(index / 3), column: index % 3};
+    };
+
   };
-  };
+
   var root = this;
 
   if (typeof exports !== 'undefined') {

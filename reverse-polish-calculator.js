@@ -1,29 +1,23 @@
 (function(){
-  
-  var root = this;
 
-  var rpc = function(x){
-    var ops = /\+|\-|\/|\*/;
-    var input = x.split(" ");
+  var rpc = function (str) {
     var stack = [];
-    var accumulator = parseFloat(input[0],10);
-    for (var i=1;i<input.length;i++){
-      // check for operator match
-      if (ops.test(input[i])){
-        // unload the stack evaling the operation
-        while(stack.length>0){
-          accumulator = eval("accumulator "+input[i]+" "+stack.pop() );
+    var ops = /\+|\-|\*|\//;
+    
+    return str.split(' ').reduce(function (m, n, i) {
+      if (i === 0) return m;
+      if (ops.test(n)) {
+        while (stack.length > 0) {
+          m = eval('m' + n + stack.pop());
         }
-
       } else {
-        // push input to the stack
-        stack.push(input[i]);
+        stack.push(n);
       }
-    }
+      return m;
+    }, parseFloat(str[0], 10));
+  }
 
-    return accumulator;
-  };
-
+  var root = this;
 
   if (typeof exports !== 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {

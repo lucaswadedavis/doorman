@@ -1,7 +1,63 @@
-describe("SuperSet()",function(){
+
+describe("mergeSort()",function(){
+  var mSort = mergeSort;
+
+  it("should return a sorted array",function(){
+    var a = [1, 2, 3];
+    var c = [1, 2, 3];
+
+    expect(mSort(a)).to.deep.equal(c);
+  });
+
+  it("should return a sorted array.",function(){
+    var a = [1, 3, 2];
+    var c = [1, 2, 3];
+
+    expect(mSort(a)).to.deep.equal(c);
+  });
+
+});
+
+
+describe("balancedParens()",function(){
+  var b = balancedParens;
+  it("should return true if balanced",function(){
+    expect( b("()") ).to.equal(true);
+    expect( b("[123][]") ).to.equal(true);
+    expect( b("{ab()}") ).to.equal(true);
+    expect( b("") ).to.equal(true);
+  });
+
+  it("should return false if unbalanced",function(){
+    expect( b("(") ).to.equal(false);
+    expect( b(")(") ).to.equal(false);
+    expect( b("([)]") ).to.equal(false);
+    expect( b("(){") ).to.equal(false);
+  });
+
+});
+
+
+describe("rpc()",function(){
+  
+  it("should add like this: 2 3 +",function(){
+    expect(rpc("2 3 +") ).to.equal(5);
+  });
+
+  it("should divide like this: 3 3 /",function(){
+    expect(rpc("3 3 /") ).to.equal(1);
+  });
+
+  it("should chain like this: 3 1 - 2 /",function(){
+    expect(rpc("3 1 - 2 /") ).to.equal(1);
+  });
+
+});
+
+describe("Set()",function(){
 
   it("should properly report an empty set",function(){
-    var s = new SuperSet();
+    var s = new Set();
 
     expect(s.isEmpty()).to.equal(true);
 
@@ -15,7 +71,7 @@ describe("SuperSet()",function(){
 
 
   it("should properly report whether an element is present in the set",function(){
-    var s = new SuperSet();
+    var s = new Set();
     s.add("dog");
     
     expect(s.contains("dog") ).to.equal(true);
@@ -51,6 +107,10 @@ describe("SuperSet()",function(){
 
 describe("TicTacToe()",function(){
 
+  function indexToCoords (index) {
+    return {row: Math.floor(index / 3), column: index % 3};
+  };
+
   it("should have a board",function(){
     var game = new TicTacToe();
     expect(!!game.board).to.equal(true);  
@@ -59,21 +119,22 @@ describe("TicTacToe()",function(){
   it("should properly take a space when asked", function () {
     var game = new TicTacToe();
 
-    game.takeCell(0,0);
-    game.takeCell(0,1,'o');
+    game.takeCell(0, 0);
+    game.takeCell(0, 1, 'o');
 
-    expect(game.board[0][0]).to.equal('x');
-    expect(game.board[0][1]).to.equal('o');
+    expect(game.getValueAtPosition(0, 0)).to.equal('x');
+    expect(game.getValueAtPosition(0, 1)).to.equal('o');
   });
 
+  
   it("should recognize a win", function () {
     var game = new TicTacToe();
-
-    for (var i=0;i<game.winningStates.length;i++){
-      for (var j=0;j<game.winningStates[i].length;j++){
-        var row = game.winningStates[i][j][0];
-        var col = game.winningStates[i][j][1];
-        game.takeCell(row, col);
+    var winningStates = '012,345,678,036,147,258,048,642'.split(',');
+    
+    for (var i=0;i<winningStates.length;i++){
+      for (var j=0;j<winningStates[i].length;j++){
+        var coords = indexToCoords(parseInt(winningStates[i][j], 10));
+        game.takeCell(coords.row, coords.column);
       }
       game.gameOver();
       expect(game.winner).to.equal('x');
@@ -81,7 +142,7 @@ describe("TicTacToe()",function(){
     }
 
   });
-
+  /*
   it("should recognize a draw", function () {
     var game = new TicTacToe();
     var cells = [
@@ -216,44 +277,7 @@ describe("TicTacToe()",function(){
     expect(game.board[0][1]).to.equal('x');
 
   });
-
-
-
-});
-
-describe("Set()",function(){
-
-  it("should properly report whether an element is present in the set",function(){
-    var s = new Set();
-    s.add("dog");
-    
-    expect(s.contains("dog") ).to.equal(true);
-    expect(s.contains("fox") ).to.equal(false);
-    s.clear();
-    expect(s.contains("dog") ).to.equal(false);
-  });
-
-
-  it("should report an accurate size",function(){
-    var s = new Set();
-    expect( s.size() ).to.equal(0);
-
-    s.add("one");
-    expect( s.size() ).to.equal(1);
-    s.add("one");
-    expect( s.size() ).to.equal(1);
-    s.remove("one");
-    expect(s.size() ).to.equal(0);
-    
-    for (var i=0;i<10;i++){s.add(i);}
-
-    expect(s.size() ).to.equal(10);
-
-    s.clear();
-
-    expect(s.size() ).to.equal(0);
-
-  });
+  */
 
 
 });
@@ -372,41 +396,6 @@ describe("binarySearch()",function(){
     expect( binarySearch(arr,0) ).to.equal(0);
     expect( binarySearch(arr,10000) ).to.equal(10000);
   });
-});
-
-describe("balancedParens()",function(){
-  var b = balancedParens;
-  it("should return true if balanced",function(){
-    expect( b("()") ).to.equal(true);
-    expect( b("[123][]") ).to.equal(true);
-    expect( b("{ab()}") ).to.equal(true);
-    expect( b("") ).to.equal(true);
-  });
-
-  it("should return false if unbalanced",function(){
-    expect( b("(") ).to.equal(false);
-    expect( b(")(") ).to.equal(false);
-    expect( b("([)]") ).to.equal(false);
-    expect( b("(){") ).to.equal(false);
-  });
-
-});
-
-
-describe("rpc()",function(){
-  
-  it("should add like this: 2 3 +",function(){
-    expect(rpc("2 3 +") ).to.equal(5);
-  });
-
-  it("should divide like this: 3 3 /",function(){
-    expect(rpc("3 3 /") ).to.equal(1);
-  });
-
-  it("should chain like this: 3 1 - 2 /",function(){
-    expect(rpc("3 1 - 2 /") ).to.equal(1);
-  });
-
 });
 
 describe("MedianCache()",function(){
