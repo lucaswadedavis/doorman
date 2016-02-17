@@ -1,21 +1,23 @@
 (function(){
-
+  
   var rpc = function (str) {
     var stack = [];
     var ops = /\+|\-|\*|\//;
-    
-    return str.split(' ').reduce(function (m, n, i) {
-      if (i === 0) return m;
+    return str.split(" ").reduce(function(m, n, i) {
+      if (i < 1) return m;
+
       if (ops.test(n)) {
-        while (stack.length > 0) {
-          m = eval('m' + n + stack.pop());
+        while (stack.length) {
+        m = eval('m' + n + stack.pop());
         }
       } else {
         stack.push(n);
       }
+
       return m;
     }, parseFloat(str[0], 10));
-  }
+
+  };
 
   var root = this;
 

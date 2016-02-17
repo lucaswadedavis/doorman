@@ -1,4 +1,35 @@
 
+describe("binarySearch()",function(){
+  for (var i=0, arr = []; i<10001; arr.push(i), i++){}
+
+  it("should return the correct index for the first of 2 elements", function () {
+    expect( binarySearch([1,2], 1)).to.equal(0);
+  });
+
+  it("should return the correct index for the second element of an array of 2 elements", function () {
+    expect( binarySearch([1,2], 2)).to.equal(1);
+  });
+
+  it("should return the correct index for an array of 3 elements", function () {
+    expect( binarySearch([1,2,3], 2)).to.equal(1);
+  });
+
+  it("should return the correct index for an array of 1 element", function () {
+    expect( binarySearch([1], 1)).to.equal(0);
+  });
+
+  it("should return -1 if target is not found",function(){
+    expect( binarySearch(arr,20000) ).to.equal(-1);
+  });
+
+  it("should return the index of the target", function(){
+    expect( binarySearch(arr,3) ).to.equal(3);
+    expect( binarySearch(arr,0) ).to.equal(0);
+    expect( binarySearch(arr,10000) ).to.equal(10000);
+  });
+});
+
+
 describe("mergeSort()",function(){
   var mSort = mergeSort;
 
@@ -382,20 +413,6 @@ describe("BinarySearchTree()",function(){
   });
   
 
-});
-
-describe("binarySearch()",function(){
-  for (var i=0, arr = []; i<10001; arr.push(i), i++){}
-  
-  it("should return -1 if target is not found",function(){
-    expect( binarySearch(arr,20000) ).to.equal(-1);
-  });
-
-  it("should return the index of the target", function(){
-    expect( binarySearch(arr,3) ).to.equal(3);
-    expect( binarySearch(arr,0) ).to.equal(0);
-    expect( binarySearch(arr,10000) ).to.equal(10000);
-  });
 });
 
 describe("MedianCache()",function(){

@@ -1,5 +1,5 @@
 (function(){
-  
+
   var balancedParens = function (str) {
     var stack = [];
     var o = '([{';
@@ -9,17 +9,14 @@
       if (o.indexOf(str[i]) > -1) {
         var index = o.indexOf(str[i]);
         stack.push(c[index]);
-      } else if (c.indexOf(str[i]) > -1) {
-        if (stack.pop() !== str[i]) {
-          return false;
-        }
+      } else if (c.indexOf(str[i]) > -1 && stack.pop() !== str[i]) {
+        return false;
       }
     }
-    
 
     return !stack.length;
   };
-
+  
   var root = this;
 
   if (typeof exports !== 'undefined') {

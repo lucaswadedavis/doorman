@@ -1,33 +1,19 @@
 (function(){
   
-  var root = this;
+  var binarySearch = function (arr, target) {
+    var middle = Math.floor(arr.length / 2);
+    var upper = arr.length;
+    var lower = 0;
 
-  var binarySearch = function(arr,target){
-    var index = Math.floor(arr.length/2);
-    var upperBound = arr.length;
-    var lowerBound = 0;
-    var count = 0;
+    while (lower !== upper && arr[middle] !== target) {
+      (target > arr[middle]) ? lower = middle + 1 : upper = middle;
+      middle = Math.floor((upper + lower) / 2);
+    }
 
-    do{
-      count ++;
-      if (arr[index] === target) {
-        break;
-      }
-
-      if (target > arr[index]){
-        // move the lowerBound
-        lowerBound = index+1;
-        index = Math.floor( (upperBound+lowerBound) /2);
-      } else {
-        // move the upperBound
-        upperBound = index;
-        index = Math.floor( (upperBound+lowerBound) /2);
-      }
-    } while (arr[index] !== target && upperBound !== lowerBound && count < 100)
-  
-    // return the index of the target or -1
-    return (arr[index] !== target && upperBound === lowerBound) ? -1 : index;
+    return (lower === upper && arr[middle] !== target) ? -1 : middle;
   };
+
+  var root = this;
 
   if (typeof exports !== 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {
