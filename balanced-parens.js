@@ -1,11 +1,10 @@
 (function(){
-
+  
   var balancedParens = function (str) {
     var stack = [];
     var o = '([{';
     var c = ')]}';
-
-    for (var i = 0; i < str.length; i++) {
+    for (var i=0;i<str.length;i++){
       if (o.indexOf(str[i]) > -1) {
         var index = o.indexOf(str[i]);
         stack.push(c[index]);
@@ -13,10 +12,9 @@
         return false;
       }
     }
-
     return !stack.length;
   };
-  
+
   var root = this;
 
   if (typeof exports !== 'undefined') {

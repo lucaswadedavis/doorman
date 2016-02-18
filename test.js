@@ -1,4 +1,34 @@
 
+describe("countChange()",function(){
+
+  it("should return correct sums", function(){
+    expect(countChange(4, [1, 2])).to.equal(3);
+    expect(countChange(1, [1])).to.equal(1);
+    expect(countChange(2, [1,2])).to.equal(2);
+    expect(countChange(3, [1, 2, 3])).to.equal(3);
+    expect(countChange(10, [1, 2, 3, 4, 5])).to.equal(30);
+  });
+
+});
+
+describe("sumOfSquares()",function(){
+
+  it("should return correct sums", function(){
+    expect( sumOfSquares(1) ).to.equal(1);
+    expect( sumOfSquares(5, 3) ).to.equal(34);
+  });
+
+});
+
+describe("factorial()",function(){
+
+  it("should return correct factorials", function(){
+    expect( factorial(1) ).to.equal(1);
+    expect( factorial(5) ).to.equal(120);
+  });
+
+});
+
 describe("binarySearch()",function(){
   for (var i=0, arr = []; i<10001; arr.push(i), i++){}
 

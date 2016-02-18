@@ -2,15 +2,15 @@
   
   var binarySearch = function (arr, target) {
     var middle = Math.floor(arr.length / 2);
-    var upper = arr.length;
     var lower = 0;
+    var upper = arr.length;
 
     while (lower !== upper && arr[middle] !== target) {
-      (target > arr[middle]) ? lower = middle + 1 : upper = middle;
+      target > arr[middle] ? lower = middle + 1 : upper = middle;
       middle = Math.floor((upper + lower) / 2);
     }
 
-    return (lower === upper && arr[middle] !== target) ? -1 : middle;
+    return (lower === upper && arr[middle] !== target) ? -1 : middle; 
   };
 
   var root = this;
