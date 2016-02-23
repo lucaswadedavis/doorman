@@ -29,4 +29,10 @@ The Cross-Origin Resource Sharing standard works by adding new HTTP headers that
 
 [Link](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS)
 
+### Big Endian, Little Endian
 
+From Wikipedia
+
+For example, the number 123, has the hundreds-digit, 1, left-most which is understood by a numerate reader. This is an example of a big-endian convention taken from daily life. The little-endian way of writing the same number would place the digit 1 in the right-most position: 321. A person following conventional place-value order, who is not aware of this special ordering, would read the number as three hundred and twenty one. Endianness in computing is similar, but it applies to the ordering of bytes in memory or during transmission.
+
+[Link](https://en.wikipedia.org/wiki/Endianness)

@@ -1,4 +1,41 @@
 
+describe("BSTMap()",function(){
+  it('should return false for no matches', function () {
+    var bstm = new BSTMap();
+    expect(bstm.get('dog')).to.equal(false);
+  });
+
+  it('should return the value for stored keys', function () {
+    var bstm = new BSTMap();
+    bstm.set('dog', 'cat');
+
+    expect(bstm.get('dog')).to.equal('cat');
+  });
+
+  it('should return the proper size', function () {
+    var bstm = new BSTMap();
+    expect(bstm.size()).to.equal(0);
+    bstm.set('dog', 'cat');
+    expect(bstm.size()).to.equal(1);
+    bstm.set('dinosaur', 'rwaaaar');
+    expect(bstm.size()).to.equal(2);
+  });
+
+});
+
+
+
+describe("matchIndex()",function(){
+  it('should return false for no matches', function () {
+    expect(matchIndex([1,2,3,3])).to.equal(3);
+  });
+
+  it('should return the correct index for the first match', function () {
+    expect(matchIndex([])).to.equal(false);
+  });
+});
+
+
 describe("Trie()",function(){
   t = new Trie();
   t.add('toad');
