@@ -1,4 +1,28 @@
 
+describe("Trie()",function(){
+  t = new Trie();
+  t.add('toad');
+  t.add('x');
+
+  it('should return a full list of prefixes when asked', function () {
+    expect(t.getPrefixes()).to.deep.equal(['t','to','toa','toad', 'x']);
+  });
+
+  it("should contain elements that have been added", function(){
+    expect(t.contains('toad')).to.equal(true);
+  });
+
+  it('should contain single-letter elements that were added', function () {
+    expect(t.contains('x')).to.equal(true);
+  });
+
+  it('should not contain elements that have not been added', function () {
+    expect(t.contains('cat')).to.equal(false);
+  });
+
+});
+
+
 describe("countChange()",function(){
 
   it("should return correct sums", function(){
