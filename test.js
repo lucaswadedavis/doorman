@@ -1,4 +1,11 @@
 
+describe("reverseWords()",function(){
+  it('should reverse words in a string', function () {
+    expect(reverseWords('palindrome dog park')).to.equal('park dog palindrome');
+  });
+});
+
+
 describe("BSTMap()",function(){
   it('should return false for no matches', function () {
     var bstm = new BSTMap();
