@@ -1,4 +1,55 @@
 
+describe("BinarySearchTree()",function(){
+  var bst = BinarySearchTree(0);
+  for (var i=1;i<100;i++){
+    bst.insert(i);
+  }
+
+  it("should return false when no value is found",function(){
+    expect( bst.contains(1000) ).to.equal(false);
+  });
+
+  it("should return true if the tree does contain the value",function(){
+    expect( bst.contains(0) ).to.equal(true);
+    expect( bst.contains(99) ).to.equal(true);
+    expect( bst.contains(44) ).to.equal(true);
+  });
+
+  it("should do a depth-first traversal of the tree",function(){
+    var mirrorArr = [];
+    bst.depthFirstLog(function(value){mirrorArr.push(value);});
+
+    for (var i=0;i<100;i++){
+      expect(mirrorArr[i]).to.equal(i);
+    }
+
+  });
+  
+
+  it('should return the nth smallest element', function () {
+    expect(bst.nthSmallest(3)).to.equal(2);  
+    expect(bst.nthSmallest(1)).to.equal(0);  
+  });
+
+});
+
+
+describe("rotatedArraySearch()",function(){
+  it('should not find something that isn\'t there', function () {
+    var arr = [4, 5, 0, 1, 2, 3];
+    
+    expect(rotatedArraySearch(arr, 10)).to.equal(-1);
+  });
+ it('should find something in a rotated array', function () {
+    var arr = [4, 5, 0, 1, 2, 3];
+    
+    expect(rotatedArraySearch(arr, 1)).to.equal(3);
+    expect(rotatedArraySearch(arr, 3)).to.equal(5);
+    expect(rotatedArraySearch(arr, 4)).to.equal(0);
+  });
+});
+
+
 describe("reverseWords()",function(){
   it('should reverse words in a string', function () {
     expect(reverseWords('palindrome dog park')).to.equal('park dog palindrome');
@@ -480,36 +531,6 @@ describe("Tree()",function(){
     expect( tree.contains("no") ).to.equal(false);
   });
 
-
-});
-
-
-describe("BinarySearchTree()",function(){
-  var bst = BinarySearchTree(0);
-  for (var i=1;i<100;i++){
-    bst.insert(i);
-  }
-
-  it("should return return false when no value is found",function(){
-    expect( bst.contains(1000) ).to.equal(false);
-  });
-
-  it("should return true if the tree does contain the value",function(){
-    expect( bst.contains(0) ).to.equal(true);
-    expect( bst.contains(99) ).to.equal(true);
-    expect( bst.contains(44) ).to.equal(true);
-  });
-
-  it("should do a depth-first traversal of the tree",function(){
-    var mirrorArr = [];
-    bst.depthFirstLog(function(value){mirrorArr.push(value);});
-
-    for (var i=0;i<100;i++){
-      expect(mirrorArr[i]).to.equal(i);
-    }
-
-  });
-  
 
 });
 

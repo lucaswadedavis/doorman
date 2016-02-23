@@ -24,7 +24,6 @@
       }
     };
 
- 
     btree.contains=function(value){
       var rtr = false;
       if(this.value === value) {
@@ -38,6 +37,17 @@
       }
       return rtr;
     };
+
+    btree.nthSmallest=function(n){
+      var smalls = [];
+      var cb = function (val) {smalls.push(val);};
+      this.depthFirstLog(cb);
+      smalls.sort(function (a, b) {
+        return a - b;
+      });
+      return smalls[n-1];
+    };
+
 
     btree.depthFirstLog=function(cb){
       cb(this.value);
