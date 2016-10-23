@@ -1,66 +1,56 @@
 (function(){
 
-  var Trie = function () {
-    rootNode = {};
+    function Trie() {
+        var root = new Node('');
 
-    this.add = function (str) {
-
-      var add = function (node, str) {
-        var head = str[0];
-        var tail = str.slice(1);
-        if (!node[head]) node[head] = {};
-        if (tail) add(node[head], tail);
-      };
-
-      add (rootNode, str);
-    };
-
-    this.contains = function (str) {
-      var res = true;
-
-      var check = function (node, str) {
-        var head = str[0];
-        var tail = str.slice(1);
-        if (!head) return;
-
-        if (!node[head]) {
-          res = false;
-          
-          return;
+        this.addWord = function(word) {
+            var node = root;
+            for (var i = 0; i < word.length; i++) {
+                if (!node.children[word[i]]) {
+                    node.children[word[i]] = new Node(word[i]);
+                }
+                node = node.children[word[i]];
+            }
+            node.terminator = true;
         }
 
-        check(node[head], tail);
-      };
+        this.getWordsForPrefix = function(prefix) {
+            return walk(root, [], prefix, []);
 
-      check(rootNode, str);
-      return res;
-    };
+            function walk(node, stack, prefix, res) {
+                stack.push(node.value);
+                if (node.terminator) res.push(stack.slice().join(''));
 
-    this.getPrefixes = function () {
-      var prefixes = [];
+                if (node.children[prefix[0]]) {
+                    walk(node.children[prefix[0]], stack, prefix.slice(1), res);
+                }
 
-      var walk = function (node, str) {
-        for (var key in node) {
-          prefixes.push(str + key);
-          walk(node[key], str + key);
+                if (!prefix.length) {
+                    for (var key in node.children) {
+                        walk(node.children[key], stack.slice(), '', res);
+                    }
+                }
+
+                return res;
+            }
         }
-      }
-
-      walk(rootNode, '');
-      return prefixes;
-    };
-
-  };
-
-  var root = this;
-
-  if (typeof exports !== 'undefined') {
-    if (typeof module !== 'undefined' && module.exports) {
-      exports = module.exports = Trie;
     }
-    exports.Trie = Trie;
-  } else {
-    root.Trie = Trie;
-  }
+
+    function Node(value) {
+        this.value = value;
+        this.terminator = false;
+        this.children = {}
+    }
+
+    var root = this;
+
+    if (typeof exports !== 'undefined') {
+        if (typeof module !== 'undefined' && module.exports) {
+            exports = module.exports = Trie;
+        }
+        exports.Trie = Trie;
+    } else {
+        root.Trie = Trie;
+    }
 
 })();
