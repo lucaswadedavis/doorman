@@ -1,5 +1,5 @@
 (function(){
-  
+
   var root = this;
 
   var breadthFirstSearch = function(node,f){
@@ -26,20 +26,18 @@
   child1.children.push(grandchild1, grandchild2, grandchild3);
   child2.children.push(grandchild4, grandchild5);
 
-  function breadthFirstMap (root, callback) {
+  function breadthFirstEach (root, callback) {
       let queue = [];
       let next = root;
-      
+
       while (next) {
           callback(next.value);
-          if (next.children) {
-              queue = queue.concat(next.children);
-          }
+          queue = queue.concat(next.children);
           next = queue.shift();
       }
   }
 
-  breadthFirstMap(root, function (value) {console.log(value);});  
+  breadthFirstEach(root, function (value) {console.log(value);});
 
 
     return results.length ? results : null;
